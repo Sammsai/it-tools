@@ -18,7 +18,7 @@ export interface Ed25519KeyPairResult {
   fingerprintMd5: string
 }
 
-export type Ed25519KeyPair = Ed25519KeyPairResult
+export type Ed25519KeyPair = Ed25519KeyPairResult;
 
 export interface GenerateEd25519Options {
   seed?: Uint8Array | string
