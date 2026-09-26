@@ -17,5 +17,7 @@ module.exports = {
         message: 'Please use local useCopy from src/composable/copy.ts instead of useClipboard.',
       }],
     }],
+    '@unocss/order': 'off',
+    '@unocss/order-attributify': 'off',
   },
 };
