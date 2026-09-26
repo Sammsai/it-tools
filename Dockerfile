@@ -5,7 +5,7 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 ENV CI=true
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && corepack prepare pnpm@9.11.0 --activate && pnpm i --frozen-lockfile
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate && pnpm i --frozen-lockfile
 COPY . .
 RUN pnpm build
 
