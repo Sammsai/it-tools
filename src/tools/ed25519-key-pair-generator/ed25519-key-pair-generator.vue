@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { computedAsync } from '@vueuse/core';
 import {
   type Ed25519KeyPair,
@@ -61,7 +61,9 @@ const emptyKeyPair: Ed25519KeyPair = {
 
 const keyPair = computedAsync(async () => {
   // Trigger update on refresh button click
-  void refreshCounter.value;
+  if (refreshCounter.value < 0) {
+    return emptyKeyPair;
+  }
 
   try {
     let seedBytes: Uint8Array | undefined;

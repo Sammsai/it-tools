@@ -1,28 +1,28 @@
 export interface Ed25519KeyPairResult {
   // OpenSSH Format
-  publicKeyOpenSSH: string;
-  privateKeyOpenSSH: string;
+  publicKeyOpenSSH: string
+  privateKeyOpenSSH: string
 
   // PEM Formats
-  publicKeyPem: string;
-  privateKeyPem: string;
+  publicKeyPem: string
+  privateKeyPem: string
 
   // Raw representations
-  publicKeyHex: string;
-  publicKeyBase64: string;
-  privateKeyHex: string;
-  privateKeyBase64: string;
+  publicKeyHex: string
+  publicKeyBase64: string
+  privateKeyHex: string
+  privateKeyBase64: string
 
   // Fingerprints
-  fingerprintSha256: string;
-  fingerprintMd5: string;
+  fingerprintSha256: string
+  fingerprintMd5: string
 }
 
-export type Ed25519KeyPair = Ed25519KeyPairResult;
+export type Ed25519KeyPair = Ed25519KeyPairResult
 
 export interface GenerateEd25519Options {
-  seed?: Uint8Array | string;
-  comment?: string;
+  seed?: Uint8Array | string
+  comment?: string
 }
 
 // Curve25519 / Ed25519 Parameters (RFC 8032)
@@ -117,7 +117,7 @@ class Point {
 
   multiply(scalar: bigint): Point {
     let res = Point.zero();
-    let temp: Point = this;
+    let temp = new Point(this.X, this.Y, this.Z, this.T);
     let s = scalar;
     while (s > 0n) {
       if (s & 1n) {
@@ -142,7 +142,7 @@ class Point {
     const out = new Uint8Array(32);
     let tempY = y;
     for (let i = 0; i < 32; i++) {
-      out[i] = Number(tempY & 0xffn);
+      out[i] = Number(tempY & 0xFFn);
       tempY >>= 8n;
     }
     if (x & 1n) {
@@ -190,8 +190,12 @@ export function bytesToBase64(bytes: Uint8Array): string {
 export function base64ToBytes(base64: string): Uint8Array {
   const cleanB64 = base64.replace(/[^A-Za-z0-9+/=]/g, '');
   let pad = 0;
-  if (cleanB64.endsWith('==')) pad = 2;
-  else if (cleanB64.endsWith('=')) pad = 1;
+  if (cleanB64.endsWith('==')) {
+    pad = 2;
+  }
+  else if (cleanB64.endsWith('=')) {
+    pad = 1;
+  }
 
   const len = Math.max(0, Math.floor((cleanB64.length * 3) / 4) - pad);
   const bytes = new Uint8Array(len);
@@ -203,9 +207,15 @@ export function base64ToBytes(base64: string): Uint8Array {
     const c2 = cleanB64[i + 2] === '=' ? 0 : B64_CHARS.indexOf(cleanB64[i + 2]);
     const c3 = cleanB64[i + 3] === '=' ? 0 : B64_CHARS.indexOf(cleanB64[i + 3]);
 
-    if (byteIndex < len) bytes[byteIndex++] = (c0 << 2) | (c1 >> 4);
-    if (byteIndex < len) bytes[byteIndex++] = ((c1 & 15) << 4) | (c2 >> 2);
-    if (byteIndex < len) bytes[byteIndex++] = ((c2 & 3) << 6) | c3;
+    if (byteIndex < len) {
+      bytes[byteIndex++] = (c0 << 2) | (c1 >> 4);
+    }
+    if (byteIndex < len) {
+      bytes[byteIndex++] = ((c1 & 15) << 4) | (c2 >> 2);
+    }
+    if (byteIndex < len) {
+      bytes[byteIndex++] = ((c2 & 3) << 6) | c3;
+    }
   }
   return bytes;
 }
@@ -217,16 +227,16 @@ export function encodeUtf8(str: string): Uint8Array {
     if (charcode < 0x80) {
       utf8.push(charcode);
     }
-    else if (charcode < 0x800) {
-      utf8.push(0xc0 | (charcode >> 6), 0x80 | (charcode & 0x3f));
+    else if (charcode < 0x08_00) {
+      utf8.push(0xC0 | (charcode >> 6), 0x80 | (charcode & 0x3F));
     }
-    else if (charcode < 0xd800 || charcode >= 0xe000) {
-      utf8.push(0xe0 | (charcode >> 12), 0x80 | ((charcode >> 6) & 0x3f), 0x80 | (charcode & 0x3f));
+    else if (charcode < 0xD8_00 || charcode >= 0xE0_00) {
+      utf8.push(0xE0 | (charcode >> 12), 0x80 | ((charcode >> 6) & 0x3F), 0x80 | (charcode & 0x3F));
     }
     else {
       i++;
-      charcode = 0x10000 + (((charcode & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff));
-      utf8.push(0xf0 | (charcode >> 18), 0x80 | ((charcode >> 12) & 0x3f), 0x80 | (charcode & 0x3f));
+      charcode = 0x00_01_00_00 + (((charcode & 0x03_FF) << 10) | (str.charCodeAt(i) & 0x03_FF));
+      utf8.push(0xF0 | (charcode >> 18), 0x80 | ((charcode >> 12) & 0x3F), 0x80 | (charcode & 0x3F));
     }
   }
   return new Uint8Array(utf8);
@@ -256,11 +266,11 @@ export function md5(data: Uint8Array): Uint8Array {
   const words = new Int32Array(wordCount);
 
   for (let i = 0; i < n; i++) {
-    words[i >> 2] |= (data[i] & 0xff) << ((i % 4) << 3);
+    words[i >> 2] |= (data[i] & 0xFF) << ((i % 4) << 3);
   }
   words[n >> 2] |= 0x80 << ((n % 4) << 3);
   words[wordCount - 2] = (n * 8) | 0;
-  words[wordCount - 1] = Math.floor((n * 8) / 0x100000000);
+  words[wordCount - 1] = Math.floor((n * 8) / 0x01_00_00_00_00);
 
   let a = 1732584193;
   let b = -271733879;
@@ -351,10 +361,10 @@ export function md5(data: Uint8Array): Uint8Array {
   const outWords = [a, b, c, d];
   for (let i = 0; i < 4; i++) {
     const w = outWords[i];
-    out[i * 4] = w & 0xff;
-    out[i * 4 + 1] = (w >>> 8) & 0xff;
-    out[i * 4 + 2] = (w >>> 16) & 0xff;
-    out[i * 4 + 3] = (w >>> 24) & 0xff;
+    out[i * 4] = w & 0xFF;
+    out[i * 4 + 1] = (w >>> 8) & 0xFF;
+    out[i * 4 + 2] = (w >>> 16) & 0xFF;
+    out[i * 4 + 3] = (w >>> 24) & 0xFF;
   }
   return out;
 }
@@ -405,10 +415,10 @@ export async function getPublicKeyFromSeed(seed: Uint8Array): Promise<Uint8Array
 
 function writeUint32BE(value: number): Uint8Array {
   const bytes = new Uint8Array(4);
-  bytes[0] = (value >>> 24) & 0xff;
-  bytes[1] = (value >>> 16) & 0xff;
-  bytes[2] = (value >>> 8) & 0xff;
-  bytes[3] = value & 0xff;
+  bytes[0] = (value >>> 24) & 0xFF;
+  bytes[1] = (value >>> 16) & 0xFF;
+  bytes[2] = (value >>> 8) & 0xFF;
+  bytes[3] = value & 0xFF;
   return bytes;
 }
 
@@ -459,7 +469,7 @@ export function encodeOpenSshPrivateKey(
     gCrypto.getRandomValues(checkintBytes);
   }
   else {
-    const r = Math.floor(Math.random() * 0xffffffff);
+    const r = Math.floor(Math.random() * 0xFF_FF_FF_FF);
     checkintBytes.set(writeUint32BE(r));
   }
 
