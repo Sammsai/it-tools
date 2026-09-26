@@ -332,4 +332,3 @@ export function decodeJwt({ jwt }: { jwt: string }) {
     payload: getClaimsList(parsed.payload),
   };
 }
-

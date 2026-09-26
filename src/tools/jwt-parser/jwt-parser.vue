@@ -203,16 +203,16 @@ function clearAll() {
               <!-- Color legend -->
               <div flex flex-wrap items-center gap-4 text-xs mt-1>
                 <div flex items-center gap-1>
-                  <span class="legend-dot bg-#fb015b" />
-                  <span text-#fb015b font-bold>HEADER</span>
+                  <span class="legend-dot bg-[#fb015b]" />
+                  <span class="text-[#fb015b] font-bold">HEADER</span>
                 </div>
                 <div flex items-center gap-1>
-                  <span class="legend-dot bg-#d63aff" />
-                  <span text-#d63aff font-bold>PAYLOAD</span>
+                  <span class="legend-dot bg-[#d63aff]" />
+                  <span class="text-[#d63aff] font-bold">PAYLOAD</span>
                 </div>
                 <div flex items-center gap-1>
-                  <span class="legend-dot bg-#00b9f1" />
-                  <span text-#00b9f1 font-bold>SIGNATURE</span>
+                  <span class="legend-dot bg-[#00b9f1]" />
+                  <span class="text-[#00b9f1] font-bold">SIGNATURE</span>
                 </div>
               </div>
             </div>
@@ -227,7 +227,7 @@ function clearAll() {
           <div flex flex-col gap-3>
             <div flex items-center justify-between>
               <div flex items-center gap-2>
-                <h3 m-0 font-bold text-base text-#fb015b>
+                <h3 m-0 font-bold text-base class="text-[#fb015b]">
                   HEADER: ALGORITHM & TOKEN TYPE
                 </h3>
               </div>
@@ -256,7 +256,7 @@ function clearAll() {
         <c-card class="jwt-card-payload">
           <div flex flex-col gap-3>
             <div flex items-center justify-between>
-              <h3 m-0 font-bold text-base text-#d63aff>
+              <h3 m-0 font-bold text-base class="text-[#d63aff]">
                 PAYLOAD: DATA
               </h3>
               <c-button size="small" variant="text" @click="copyPayload()">
@@ -339,7 +339,7 @@ function clearAll() {
         <c-card class="jwt-card-signature">
           <div flex flex-col gap-3>
             <div flex items-center justify-between>
-              <h3 m-0 font-bold text-base text-#00b9f1>
+              <h3 m-0 font-bold text-base class="text-[#00b9f1]">
                 VERIFY SIGNATURE
               </h3>
 
@@ -459,4 +459,3 @@ function clearAll() {
   border-radius: 4px;
 }
 </style>
-

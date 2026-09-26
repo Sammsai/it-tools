@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import {
   base64UrlDecode,
   base64UrlEncode,
-  computeHmacSignature,
   decodeJwt,
   formatTimestamp,
   generateJwtFromParts,
