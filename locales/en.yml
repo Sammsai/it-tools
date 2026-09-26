@@ -273,6 +273,10 @@ tools:
     title: RSA key pair generator
     description: Generate a new random RSA private and public pem certificate key pair.
 
+  ed25519-key-pair-generator:
+    title: Ed25519 key pair generator
+    description: Generate new Ed25519 public and private key pairs in OpenSSH, PKCS#8/SPKI PEM, and Hex/Base64 raw formats.
+
   html-wysiwyg-editor:
     title: HTML WYSIWYG editor
     description: Online, feature-rich WYSIWYG HTML editor which generates the source code of the content immediately.

@@ -264,6 +264,9 @@ tools:
   rsa-key-pair-generator:
     title: Trình tạo cặp khóa RSA
     description: Tạo các chứng chỉ pem khóa riêng tư và khóa công khai RSA ngẫu nhiên mới.
+  ed25519-key-pair-generator:
+    title: Trình tạo cặp khóa Ed25519
+    description: Tạo các cặp khóa Ed25519 mới ở định dạng OpenSSH, PKCS#8/SPKI PEM và Hex/Base64.
 
   html-wysiwyg-editor:
     title: Trình soạn thảo HTML WYSIWYG

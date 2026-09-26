@@ -273,6 +273,10 @@ tools:
     title: RSA nøkkelpar generator
     description: Generer et nytt tilfeldig RSA privat og offentlig pem sertifikat nøkkel par.
 
+  ed25519-key-pair-generator:
+    title: Ed25519 nøkkelpar generator
+    description: Generer nye Ed25519 nøkkelpar i OpenSSH, PKCS#8/SPKI PEM og Hex/Base64 format.
+
   html-wysiwyg-editor:
     title: HTML WYSIWYG editor
     description: Online, funksjonsrik WYSIWYG HTML editor som genererer kildekoden for innholdet øyeblikkelig.

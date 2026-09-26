@@ -317,6 +317,9 @@ tools:
   rsa-key-pair-generator:
     title: RSA-Schlüsselpaar-Generator
     description: Generiere neue zufällige RSA-Private- und Public-Key-PEM-Zertifikate.
+  ed25519-key-pair-generator:
+    title: Ed25519-Schlüsselpaar-Generator
+    description: Generiere Ed25519-Schlüsselpaare in den Formaten OpenSSH, PKCS#8/SPKI PEM und Hex/Base64.
   html-wysiwyg-editor:
     title: HTML-WYSIWYG-Editor
     description: >-
