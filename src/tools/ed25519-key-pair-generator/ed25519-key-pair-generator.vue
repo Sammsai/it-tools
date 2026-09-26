@@ -119,7 +119,7 @@ function downloadFile(content: string, filename: string) {
   <div style="flex: 0 0 100%" flex flex-col gap-4>
     <c-card>
       <div flex flex-col gap-3>
-        <div flex flex-wrap items-center gap-3>
+        <div flex flex-wrap items-end gap-3>
           <c-input-text
             v-model:value="comment"
             label="Key comment (optional):"
@@ -128,13 +128,13 @@ function downloadFile(content: string, filename: string) {
             flex-1
           />
 
-          <c-buttons-select
-            v-model:value="seedMode"
-            :options="['Random', 'Custom seed']"
-            label="Seed mode:"
-          />
+          <div flex items-center gap-3>
+            <c-buttons-select
+              v-model:value="seedMode"
+              :options="['Random', 'Custom seed']"
+              label="Seed mode:"
+            />
 
-          <div flex items-end pt-5>
             <c-button @click="refreshKeyPair">
               Refresh key-pair
             </c-button>
